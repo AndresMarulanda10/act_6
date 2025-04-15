@@ -1,0 +1,55 @@
+---
+import 'styles.css'; // Imports global styles for the application.
+import Footer from 'components/Footer.astro'; // Imports the Footer component.
+import Header from 'components/Header.astro'; // Imports the Header component.
+import 'svelte-material-ui/bare.css'; // Imports styles from the Svelte Material UI library.
+
+const VARIANT_CLASS_MAP = {
+  blog: 'tw-prose', // Tailwind class for blog pages.
+  page: 'tw-px-12', // Tailwind class for regular pages.
+};
+
+type Props = {
+  page: string; // The current page name.
+  variant?: 'page' | 'blog'; // Optional variant type, either 'page' or 'blog'.
+};
+
+const { page } = (Astro.props.frontmatter || Astro.props) as Props;
+// Extracts the `page` property from `Astro.props`. If `frontmatter` exists, it uses that; otherwise, it falls back to `Astro.props`.
+
+const title = 'Multi Framework Dashboard'; // Sets the page title.
+const variantClass =
+  VARIANT_CLASS_MAP[Astro.props.frontmatter ? 'blog' : 'page'];
+// Determines the CSS class to apply based on whether `frontmatter` exists. Defaults to 'page' if no frontmatter is provided.
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /> <!-- Sets the character encoding to UTF-8. -->
+    <meta name="viewport" content="width=device-width" /> <!-- Ensures responsive design by setting the viewport. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <!-- Links to the favicon for the site. -->
+    <link rel="stylesheet" href="/vuetify.min.css" /> <!-- Links to Vuetify's CSS for styling. -->
+    <meta name="generator" content={Astro.generator} /> <!-- Adds metadata about the generator (Astro). -->
+    <title>{title}</title> <!-- Sets the page title dynamically. -->
+  </head>
+  <body>
+    <div class="tw-flex tw-h-screen tw-overflow-hidden">
+      <!-- A flex container that spans the full height of the screen and hides overflow. -->
+      <main
+        class="tw-relative tw-bg-white tw-flex tw-flex-col tw-flex-1 tw-overflow-y-auto tw-overflow-x-hidden"
+      >
+        <!-- Main content area styled with Tailwind classes for layout and scrolling. -->
+        <Header title={title} page={page} />
+        <!-- Renders the Header component, passing the title and page as props. -->
+        <div class={`tw-container tw-mx-auto tw-my-10 ${variantClass}`}>
+          <!-- A container for the main content, styled with Tailwind classes and the dynamic variant class. -->
+          <slot />
+          <!-- Placeholder for child content passed into this layout. -->
+        </div>
+        <Footer />
+        <!-- Renders the Footer component. -->
+      </main>
+    </div>
+  </body>
+</html>
