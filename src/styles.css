@@ -1,0 +1,34 @@
+/* Imports Tailwind's base styles. */
+@tailwind base;
+
+/* Imports Tailwind's component classes. */
+@tailwind components;
+
+/* Imports Tailwind's utility classes. */
+@tailwind utilities;
+
+/* Enables smooth scrolling for in-page anchor navigation. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Applies full height to both html and body. */
+html,
+body {
+  @apply tw-h-full;
+}
+
+/* Forces scroll on the vertical axis. */
+body {
+  @apply tw-overflow-y-scroll;
+}
+
+/* Sets h1 to a larger text size (2xl). */
+h1 {
+  @apply tw-text-2xl;
+}
+
+/* Sets h2 to a slightly smaller text size (xl). */
+h2 {
+  @apply tw-text-xl;
+}
